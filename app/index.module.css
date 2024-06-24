@@ -1,11 +1,17 @@
 .backgroundShapeIcon {
+    /*    position: absolute;*/
+    /*    top: 0px;*/
+    /*    left: 121px;*/
+    /*    !*width: 1509px;*!*/
+    /*    !*height: 820px;*!*/
+    /*    height: 100%;*/
+    /*    width: 100%;*/
+    /*}*/
     position: absolute;
-    top: 0px;
-    left: 121px;
-    /*width: 1509px;*/
-    /*height: 820px;*/
-    height: 100%;
-    width: 100%;
+    top: 0rem;
+    left: 7.563rem;
+    width: 94.313rem;
+    height: 51.25rem;
 }
 .logIn {
     position: absolute;

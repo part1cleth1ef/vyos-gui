@@ -17,18 +17,14 @@ export default {
         '2xl': '1400px'
       }
     },
+    
     extend: {
+      fontFamily: {
+        work_sans: "Work Sans",
+        archivo: "Archivo",
+      },
+      
       colors: {
-        // #F6F8FA <- slate-50
-        // #FF9101 <- amber-500
-        // #FFBF12 <- yellow-400
-        // #FFC928 <- amber-400
-        // #FFFFFF <- white
-        
-        // slate: {
-        //   50: "#F6F8FA"
-        // },
-        
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

@@ -1,24 +1,25 @@
-import Image from 'next/image';
+'use client'
 
+import {Stack, useMediaQuery} from "@chakra-ui/react";
 // assets
-import styles from './index.module.css';
-import logo from "static/Logo.svg";
-import eye from "static/login/eye.svg";
-import background_shape from "static/login/background_shape.svg";
-import LoginForm from "@/components/login/form";
+import {InfoBox, MobileInfoBox} from "@/components/login/InfoBox";
+import {LoginBox, MobileLoginBox} from "@/components/login/LoginBox";
+import {getDisplayType} from "@/lib/utils";
 
-
-export default async function IndexPage() {
+export default function IndexPage() {
+    const displayType = getDisplayType();
+    
     return (
-        <div className={styles.login}>
-            <Image src={background_shape} alt="Background Shape" className={styles.backgroundShapeIcon}/>
-            <LoginForm/>
-
-            <div className={styles.vyosParent}>
-                <div className={styles.vyos}>VyOS</div>
-                <Image src={logo} alt="Vyos Logo" className={styles.logoIcon}/>
-                <div className={styles.routerexamplecom}>1.4.0 (router.example.com)</div>
-            </div>
-        </div>
+        <Stack
+            // check if displayType is phone or tablet
+            direction={ displayType != "desktop" ? "column" : "row"}
+            justify={displayType === "phone" ? "space-between" : "space-around"}
+            align="center"
+            width="100%"
+            height="100vh"
+            bg="#F6F8FA">
+            {displayType === "phone" ? <MobileInfoBox/> : <InfoBox/>}
+            {displayType === "phone" ? <MobileLoginBox/> : <LoginBox/>}
+        </Stack>
     );
 }

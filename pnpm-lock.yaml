@@ -20,6 +20,12 @@ importers:
       '@emotion/styled':
         specifier: ^11.11.5
         version: 11.11.5(@emotion/react@11.11.4(@types/react@18.3.2)(react@18.3.1))(@types/react@18.3.2)(react@18.3.1)
+      '@fontsource-variable/archivo':
+        specifier: ^5.0.19
+        version: 5.0.19
+      '@fontsource-variable/work-sans':
+        specifier: ^5.0.19
+        version: 5.0.19
       '@neondatabase/serverless':
         specifier: ^0.9.3
         version: 0.9.3
@@ -990,6 +996,12 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
+
+  '@fontsource-variable/archivo@5.0.19':
+    resolution: {integrity: sha512-dJdRylf/50fqAY6UufqfsdW4TTznA7weeaSMy6258eG11RALWeHwZa4CDWPQ5e0Pj6OFQEV9IXZkjXdeOacvbg==}
+
+  '@fontsource-variable/work-sans@5.0.19':
+    resolution: {integrity: sha512-UAHRcHDhCt1RyDwzigdQXFwL6skyVDQJxcnD7neHEdAHP9aQuDPWDWeHUfWsmPiBlseOlyczpfsQQcAllOxA9w==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -3301,6 +3313,10 @@ snapshots:
 
   '@esbuild/win32-x64@0.19.12':
     optional: true
+
+  '@fontsource-variable/archivo@5.0.19': {}
+
+  '@fontsource-variable/work-sans@5.0.19': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
