@@ -1,5 +1,5 @@
 import {useFormik} from "formik";
-import {Button, FormLabel, Input, Stack} from "@chakra-ui/react";
+import {Button, FormLabel, Input, LightMode, Stack} from "@chakra-ui/react";
 import {getDisplayType} from "@/lib/utils";
 
 
@@ -32,7 +32,7 @@ function LoginForm() {
             alert(JSON.stringify(values, null, 2))
         },
     })
-    
+
     const displayType = getDisplayType();
 
     return (
@@ -47,6 +47,7 @@ function LoginForm() {
                 onChange={formik.handleChange}
                 value={formik.values.username}
                 required={true}
+                bg={"login_form_input"}
             />
 
             <FormLabel htmlFor={"password"} color={"login_subtitle"} fontFamily={"Work Sans Variable"}
@@ -59,6 +60,7 @@ function LoginForm() {
                 onChange={formik.handleChange}
                 value={formik.values.password}
                 required={true}
+                bg={"login_form_input"}
             />
 
             <Stack
@@ -69,7 +71,9 @@ function LoginForm() {
                 marginTop={8}
 
             >
-                <Button textAlign="center" type={"submit"}>Login</Button>
+                <LightMode>
+                    <Button textAlign="center" type={"submit"}>Login</Button>
+                </LightMode>
             </Stack>
         </form>
     )

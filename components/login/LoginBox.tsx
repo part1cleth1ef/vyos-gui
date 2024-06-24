@@ -1,9 +1,8 @@
 'use client'
 import LoginForm from "@/components/login/form";
-import {Button, Stack, Text, useColorMode} from "@chakra-ui/react";
+import {Stack, Text} from "@chakra-ui/react";
 
 export function LoginBox() {
-    const { colorMode, toggleColorMode } = useColorMode()
     return (
         <Stack
             borderRadius="4px"
@@ -31,9 +30,6 @@ export function LoginBox() {
             </Text>
 
             <LoginForm/>
-            <Button onClick={toggleColorMode}>
-                Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-            </Button>
         </Stack>
     )
 }
