@@ -37,7 +37,7 @@ function LoginForm() {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <FormLabel htmlFor={"username"} color={"gray"} fontFamily={"Work Sans Variable"}
+            <FormLabel htmlFor={"username"} color={"login_subtitle"} fontFamily={"Work Sans Variable"}
                        fontWeight={"medium"}>Username</FormLabel>
             <Input
                 id={"username"}
@@ -49,7 +49,7 @@ function LoginForm() {
                 required={true}
             />
 
-            <FormLabel htmlFor={"password"} color={"gray"} fontFamily={"Work Sans Variable"}
+            <FormLabel htmlFor={"password"} color={"login_subtitle"} fontFamily={"Work Sans Variable"}
                        fontWeight={"medium"}>Password</FormLabel>
             <Input
                 id={"password"}

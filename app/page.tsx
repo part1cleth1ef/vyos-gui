@@ -1,6 +1,6 @@
 'use client'
 
-import {Stack, useMediaQuery} from "@chakra-ui/react";
+import {Stack} from "@chakra-ui/react";
 // assets
 import {InfoBox, MobileInfoBox} from "@/components/login/InfoBox";
 import {LoginBox, MobileLoginBox} from "@/components/login/LoginBox";
@@ -17,7 +17,8 @@ export default function IndexPage() {
             align="center"
             width="100%"
             height="100vh"
-            bg="#F6F8FA">
+            bg="login_background"
+        >
             {displayType === "phone" ? <MobileInfoBox/> : <InfoBox/>}
             {displayType === "phone" ? <MobileLoginBox/> : <LoginBox/>}
         </Stack>

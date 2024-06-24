@@ -24,7 +24,7 @@ export function InfoBox() {
                     fontWeight="medium"
                     fontSize="14px"
                     letterSpacing="-0.04em"
-                    color="Grey"
+                    color="login_subtitle"
                 >
                     1.4.0 (router.example.com)
                 </Text>
