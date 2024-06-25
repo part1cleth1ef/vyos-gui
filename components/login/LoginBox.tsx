@@ -51,6 +51,10 @@ export function MobileLoginBox() {
             boxShadow="0px 4px 24px 0px rgba(0, 0, 0, 0.08)"
             
             padding={8}
+            
+            bg={"login_form_box"}
+            
+            zIndex={2}
         >
             <Text
                 fontFamily="Archivo Variable"

@@ -2,12 +2,11 @@
 
 import {Stack} from "@chakra-ui/react";
 import {Image} from "@chakra-ui/next-js";
-import {getDisplayType} from "@/lib/utils";
+import {getBackgroundShape, getDisplayType} from "@/lib/utils";
 
 // assets
 import {InfoBox, MobileInfoBox} from "@/components/login/InfoBox";
 import {LoginBox, MobileLoginBox} from "@/components/login/LoginBox";
-import background_shape from "../static/login/background_shape.svg";
 
 export default function IndexPage() {
     const displayType = getDisplayType();
@@ -22,7 +21,7 @@ export default function IndexPage() {
             height="100vh"
             bg="login_background"
         >
-            <Image src={background_shape} alt={""} position={"absolute"} zIndex={1} minHeight="100%" minWidth="100%"/>
+            <Image src={getBackgroundShape()} alt={""} position={"absolute"} zIndex={0} minHeight="100%" minWidth="100%"/>
             {displayType === "phone" ? <MobileInfoBox/> : <InfoBox/>}
             {displayType === "phone" ? <MobileLoginBox/> : <LoginBox/>}
         </Stack>
