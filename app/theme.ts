@@ -1,5 +1,5 @@
 // fonts
-import {extendTheme, ThemeConfig, withDefaultColorScheme} from '@chakra-ui/react';
+import {extendTheme, ThemeConfig} from '@chakra-ui/react';
 import '@fontsource-variable/archivo';
 import '@fontsource-variable/work-sans';
 
@@ -9,13 +9,6 @@ const themeConfig: ThemeConfig = {
 };
 
 const theme = extendTheme({
-// set primary color
-        colors: {
-            vyos: {
-                500: "#ff9101",
-                main: "#ffffff",
-            }
-        },
         semanticTokens: {
             colors: {
                 login_background: {
@@ -30,18 +23,33 @@ const theme = extendTheme({
                     _light: "#FFFFFF",
                     _dark: "#202027"
                 },
-                "login_form_input": {
+                login_form_input: {
                     _light: "#FFFFFF",
                     _dark: "rgba(103,109,124,0.5)"
+                },
+                primary_button: {
+                    bg: {
+                        default: "#ff9101"
+                    },
+                    text: {
+                        _light: "white",
+                        _dark: "black"
+                    },
+                }
+            }
+        },
+        components: {
+            Button: {
+                variants: {
+                    primary: {
+                        bg: "primary_button.bg",
+                        color: "primary_button.text"
+                    }
                 }
             }
         },
         themeConfig,
     },
-    withDefaultColorScheme({
-        colorScheme: 'vyos',
-        components: ['Button']
-    })
 );
 
 

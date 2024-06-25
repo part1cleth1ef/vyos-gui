@@ -72,7 +72,8 @@ function LoginForm() {
 
             >
                 <LightMode>
-                    <Button textAlign="center" type={"submit"}>Login</Button>
+                    {/* The figma has the button in both light+dark mode here use the light variant. */}
+                    <Button textAlign="center" type={"submit"} variant={"primary"}>Login</Button>
                 </LightMode>
             </Stack>
         </form>
