@@ -1,7 +1,7 @@
 'use client'
-import {Box, Flex, Stack, Text} from "@chakra-ui/react";
+import {Box, Flex, HStack, Stack, Text} from "@chakra-ui/react";
 import Image from "next/image";
-import logo from "static/Logo.svg";
+import logo from "static/_logos/default.svg";
 
 export function InfoBox() {
     return (
@@ -10,15 +10,26 @@ export function InfoBox() {
                 <Image src={logo} alt="VyOS Logo" width={64}/>
             </Stack>
             <Box>
-                <Text
-                    fontFamily="Archivo Variable"
-                    fontWeight="semibold"
-                    fontSize="32px"
-                    letterSpacing="-0.5px"
-                    color="Grey Dark"
-                >
-                    VyOS
-                </Text>
+                <HStack>
+                    <Text
+                        fontFamily="Archivo Variable"
+                        fontWeight="semibold"
+                        fontSize="32px"
+                        letterSpacing="-0.5px"
+                        color="Grey Dark"
+                    >
+                        VyOS
+                    </Text>
+                    <Text
+                        fontFamily="Archivo Variable"
+                        fontWeight="semibold"
+                        fontSize="24px"
+                        letterSpacing="-0.5px"
+                        color="Grey Dark"
+                    >
+                        Local UI
+                    </Text>
+                </HStack>
                 <Text
                     fontFamily="Work Sans Variable"
                     fontWeight="medium"
