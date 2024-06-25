@@ -4,7 +4,7 @@ import '@fontsource-variable/archivo';
 import '@fontsource-variable/work-sans';
 
 const themeConfig: ThemeConfig = {
-    initialColorMode: 'dark',
+    initialColorMode: 'system',
     useSystemColorMode: false,
 };
 

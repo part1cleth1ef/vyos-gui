@@ -37,6 +37,9 @@ function LoginForm() {
 
     return (
         <form onSubmit={formik.handleSubmit}>
+            
+            {/* TODO: add the missing error alert */}
+            
             <FormLabel htmlFor={"username"} color={"login_subtitle"} fontFamily={"Work Sans Variable"}
                        fontWeight={"medium"}>Username</FormLabel>
             <Input
