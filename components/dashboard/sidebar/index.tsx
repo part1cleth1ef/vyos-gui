@@ -1,12 +1,24 @@
 'use client'
-import {Box, Button, Divider, HStack, LightMode, Spacer, Text, VStack, useDisclosure} from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Divider,
+    HStack,
+    LightMode,
+    Spacer,
+    Text,
+    VStack,
+    useDisclosure,
+    Accordion, AccordionButton, AccordionPanel, AccordionItem
+} from "@chakra-ui/react";
 import {Image} from "@chakra-ui/next-js";
+import React, {Children, ReactNode} from "react";
 // assets
 import white_logo from "static/_logos/white.svg";
 import info_small from "static/_icons/info_small.svg";
 import settings_icon from "static/_icons/settings.svg";
 import notification from "static/_icons/notification.svg";
-import down_arrow from "static/_icons/down_arrow.svg";
+import vpn_icon from "static/_icons/vpn.svg";
 
 function Title() {
     return (
@@ -36,20 +48,43 @@ interface ItemProps {
     name: string;
     selected: boolean;
     notifications?: number;
-    // children?: ReactNode;
-    children?: ManyChildProps;
-    isSubItem?: boolean
+    // instead of having children as a prop, we can use different components for sections then nesting the items inside.
+    // This makes it easier to manage the state of the children + the code becomes far cleaner because there is no insane nesting of buttons.
+    /// because this is a child item, we ensure that there is no icon 
+    isChildItem?: boolean
 }
 
-interface ChildProps {
-    key: number;
+// to simplify the code we can use a parent component that will essentially just be a accordion that looks slightly like a button.
+type ParentProps = {
+    icon: string | null;
     name: string;
+    children: React.JSX.Element;
 }
 
-type ManyChildProps = ChildProps[]
+// TODO: think about default open state for the parent component (if it should be open or closed), this is possible using the index prop
+// TODO: put the accordion in the actual sidebar component
+// TODO: remove the top and bottom dividers which come from the accordion.
+// TODO: fix styling for the accordion + items
+// TODO auto-remove the icon from child items OR make it optional
+// TODO: add a notification prop to the parent component
 
-function Item({icon, name, selected, notifications, children, isSubItem = false}: ItemProps) {
-    let theme_key = `sidebar_${(selected && !children) ? (isSubItem ? 'child_selected' : 'selected') : (isSubItem ? 'child_normal' : 'normal')}`;
+function ParentSection({name, icon, children}: ParentProps) {
+    return (
+        <Accordion allowMultiple={true}>
+            <AccordionItem>
+                <AccordionButton>
+                    <Item icon={icon} name={name} selected={false} isChildItem={false}/>
+                </AccordionButton>
+                <AccordionPanel>
+                    {children}
+                </AccordionPanel>
+            </AccordionItem>
+        </Accordion>
+    )
+}
+
+function Item({icon, name, selected, notifications, isChildItem = false}: ItemProps) {
+    let theme_key = `sidebar_${(selected) ? (isChildItem ? 'child_selected' : 'selected') : (isChildItem ? 'child_normal' : 'normal')}`;
 
     const {getDisclosureProps, getButtonProps} = useDisclosure()
 
@@ -57,18 +92,13 @@ function Item({icon, name, selected, notifications, children, isSubItem = false}
     const buttonProps = getButtonProps()
     const disclosureProps = getDisclosureProps()
 
-    if (!!children) {
-        for (let i = 0; i < children.length; i++) {
-            console.log(children[i].name)
-        }
-    }
 
     return (
         <>
             <Button
                 variant={theme_key}
                 paddingY={"8px"}
-                paddingX={isSubItem ? "32px" : "24px"}
+                paddingX={isChildItem ? "32px" : "24px"}
                 justifyContent={"flex-start"}
                 // onClick={onOpen}
                 {...buttonProps}
@@ -80,7 +110,7 @@ function Item({icon, name, selected, notifications, children, isSubItem = false}
                 {/* Name */}
                 <Text variant={"sidebar_title"}
                       color={`buttons.sidebar.${selected ? 'selected' : 'normal'}.text`}>{name}</Text>
-                {(!children && !!notifications) &&
+                {!!notifications &&
                     <>
                         <Spacer/>
                         <Box bg={"red"} rounded={13}>
@@ -89,37 +119,12 @@ function Item({icon, name, selected, notifications, children, isSubItem = false}
                         </Box>
                     </>
                 }
-                {(children && !notifications) &&
-                    <>
-                        <Spacer/>
-                        <Box>
-                            <Image src={down_arrow} alt={"Down Arrow"} padding={"5px"} width={3}/>
-                        </Box>
-                    </>
-                }
             </Button>
-            {children &&
-                <VStack bg={"sidebar_children_bg"}
-                        paddingY={"8px"}
-                        roundedBottom={6}
-                        paddingX={"0px"}
-                        {...disclosureProps}
-                >
-                    {children.map((child, index) => (
-                        <Item icon={null} name={child.name} selected={index == 0} isSubItem={true}/>
-                    ))}
-                </VStack>
-            }
         </>
     )
 }
 
 export default function Sidebar() {
-
-    const children = [
-        {name: "sub-item", key: 1},
-        {name: "sub-item-2", key: 2},
-    ] as ManyChildProps
 
     return (
         <VStack bg={"background"}>
@@ -135,11 +140,9 @@ export default function Sidebar() {
 
             <Divider/>
 
-            <Item icon={info_small} name={"test_sd"} selected={false} children={children}>
-                {/*<Item icon={settings_icon} name={"sub-item"} selected={true}>*/}
-                {/*    /!*<Item icon={info_small} name={"sub-sub-item"} selected={false}/>*!/*/}
-                {/*</Item>*/}
-            </Item>
+            <ParentSection name={"VPN"} icon={vpn_icon}>
+                <Item icon={info_small} name={"IPsec"} selected={false} isChildItem={true}/>
+            </ParentSection>
         </VStack>
     )
 }
