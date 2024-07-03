@@ -24,9 +24,9 @@ const theme = extendTheme(
                     _light: "#F6F8FA",
                     _dark: "#303237"
                 },
-                
+
                 // login page colors
-                
+
                 login_form_box: {
                     _light: "#FFFFFF",
                     _dark: "_black"
@@ -35,14 +35,19 @@ const theme = extendTheme(
                     _light: "#FFFFFF",
                     _dark: "rgba(103,109,124,0.5)"
                 },
-                
+
+                // sidebar specific colors
+                sidebar_children_bg: {
+                    _light: "rgba(32, 32, 39, 0.05)",
+                    _dark: "rgba(32, 32, 39, 0.35)",
+                },
                 // generics
 
                 subtitle: {
                     _light: "#676D7C",
                     _dark: "#A3AEB3"
                 },
-                
+
                 subheading: {
                     _light: "#3A3E47",
                     _dark: "white"
@@ -89,6 +94,8 @@ const theme = extendTheme(
                         bg: "buttons.primary.bg",
                         color: "buttons.primary.text"
                     },
+
+                    // sidebar related
                     sidebar_selected: {
                         bg: "buttons.sidebar.selected.bg",
                         color: "buttons.sidebar.selected.text",
@@ -100,7 +107,19 @@ const theme = extendTheme(
                         color: "buttons.sidebar.normal.text",
                         width: 224,
                         height: 38,
-                    }
+                    },
+                    sidebar_child_selected: {
+                        bg: "buttons.sidebar.selected.bg",
+                        color: "buttons.sidebar.selected.text",
+                        width: 208,
+                        height: 38,
+                    },
+                    sidebar_child_normal: {
+                        bg: "buttons.sidebar.normal.bg",
+                        color: "buttons.sidebar.normal.text",
+                        width: 208,
+                        height: 38,
+                    },
                 },
             },
             Text: {
@@ -119,9 +138,9 @@ const theme = extendTheme(
                         fontSize: "12px",
                         letterSpacing: "-0.04em",
                     },
-                    
+
                     // generics
-                    
+
                     subheading: {
                         color: "subheading",
                         fontFamily: "Work Sans Variable",
