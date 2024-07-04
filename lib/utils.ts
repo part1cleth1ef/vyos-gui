@@ -6,15 +6,15 @@ import background_shape_mobile from "../static/login/background_shape_mobile.png
 
 
 export function getDisplayType() {
-  const [isTablet] = useMediaQuery("(max-width: 768px)");
-  const [isPhone] = useMediaQuery("(max-width: 375px)");
-  
+    const [isTablet] = useMediaQuery("(max-width: 768px)");
+    const [isPhone] = useMediaQuery("(max-width: 375px)");
+
     return isPhone ? "phone" : isTablet ? "tablet" : "desktop";
 }
 
 export function getBackgroundShape() {
     const displayType = getDisplayType();
-    
+
     if (displayType === "phone") {
         return background_shape_mobile;
     } else if (displayType === "tablet") {

@@ -8,10 +8,11 @@ import {
     Text,
     VStack,
     useDisclosure,
-    Accordion, AccordionButton, AccordionPanel, AccordionItem, Container
+    Accordion, AccordionButton, AccordionPanel, AccordionItem, Container, AccordionIcon
 } from "@chakra-ui/react";
 import {Image} from "@chakra-ui/next-js";
 import React from "react";
+import {useRouter} from "next/navigation";
 // assets
 import white_logo from "static/_logos/white.svg";
 import info_small from "static/_icons/info_small.svg";
@@ -19,7 +20,6 @@ import settings_icon from "static/_icons/settings.svg";
 import notification from "static/_icons/notification.svg";
 import vpn_icon from "static/_icons/vpn.svg";
 import interfaces_icon from "static/_icons/interfaces.svg";
-import {useRouter} from "next/navigation";
 
 function Title() {
     return (
@@ -69,14 +69,19 @@ type ParentProps = {
 // TODO: think about default open state for the parent component (if it should be open or closed), this is possible using the index prop
 // TODO: remove the top and bottom dividers which come from the accordion.
 // TODO: fix styling for the accordion + items
+// -> Fix Styling for Accordion Arrow ✅
 // TODO: add a notification prop to the parent component
 
 function ParentSection({name, icon, children}: ParentProps) {
     return (
 
-        <AccordionItem>
+        <AccordionItem border={"none"}>
             <AccordionButton>
-                <Item icon={icon} name={name} selected={false} isChildItem={false} isParentItem={true}/>
+                <HStack>
+                    <Item icon={icon} name={name} selected={false} isChildItem={false} isParentItem={true}/>
+                    <Spacer/>
+                </HStack>
+                <AccordionIcon/>
             </AccordionButton>
             <AccordionPanel>
                 {children}
@@ -169,17 +174,17 @@ export default function Sidebar() {
 
                 <Item icon={interfaces_icon} name={"Network Interfaces"} selected={false}/>
 
-                <Divider/>
+                <Divider variant={"sidebar"}/>
 
                 <Item icon={settings_icon} name={"Settings"} selected={true}/>
 
-                <Divider/>
+                <Divider variant={"sidebar"}/>
 
                 <ParentSection name={"VPN"} icon={vpn_icon}>
                     <Item icon={null} name={"IPsec"} selected={false} isChildItem={true}/>
                 </ParentSection>
 
-                <Divider/>
+                <Divider variant={"sidebar"}/>
 
                 <Item icon={info_small} name={"Login Page"} selected={false} page_url={"/"}/>
             </Accordion>

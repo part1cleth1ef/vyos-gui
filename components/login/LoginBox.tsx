@@ -16,7 +16,7 @@ export function LoginBox() {
             maxWidth="100%"
             bg={"login_form_box"}
             boxShadow="0px 4px 24px 0px rgba(0, 0, 0, 0.08)"
-            
+
             zIndex={2}
 
             padding={8}
@@ -49,11 +49,11 @@ export function MobileLoginBox() {
             height="498px"
             maxWidth="100%"
             boxShadow="0px 4px 24px 0px rgba(0, 0, 0, 0.08)"
-            
+
             padding={8}
-            
+
             bg={"login_form_box"}
-            
+
             zIndex={2}
         >
             <Text

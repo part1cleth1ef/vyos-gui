@@ -1,5 +1,6 @@
+import {createMultiStyleConfigHelpers, extendTheme, ThemeConfig} from '@chakra-ui/react';
+import {accordionAnatomy} from '@chakra-ui/anatomy'
 // fonts
-import {extendTheme, ThemeConfig} from '@chakra-ui/react';
 import '@fontsource-variable/archivo';
 import '@fontsource-variable/work-sans';
 
@@ -7,6 +8,19 @@ const themeConfig: ThemeConfig = {
     initialColorMode: 'system',
     useSystemColorMode: false,
 };
+
+const accordion_helper =
+    createMultiStyleConfigHelpers(accordionAnatomy.keys)
+
+const accordionBaseStyle = accordion_helper.definePartsStyle({
+    // define the part you're going to style
+    icon: {
+        color: 'vyos.main', // change the backgroundColor of the container
+    },
+})
+
+export const accordionTheme = accordion_helper.defineMultiStyleConfig({baseStyle: accordionBaseStyle})
+
 
 const theme = extendTheme(
     {
@@ -63,7 +77,7 @@ const theme = extendTheme(
                         },
                     },
                 },
-                containers : {
+                containers: {
                     sidebar: {
                         selected: {
                             bg: {
@@ -161,7 +175,19 @@ const theme = extendTheme(
                         height: 38,
                     },
                 }
-            }
+            },
+            Divider: {
+                variants: {
+                    sidebar: {
+                        marginY: "16px",
+                        borderColor: "#D5E0E7",
+                        borderBottomWidth: "1px",
+                        borderStyle: "solid",
+                        width: "224px",
+                    }
+                }
+            },
+            Accordion: accordionTheme,
         },
         themeConfig,
     },
