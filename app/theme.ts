@@ -62,6 +62,8 @@ const theme = extendTheme(
                             _dark: "black"
                         },
                     },
+                },
+                containers : {
                     sidebar: {
                         selected: {
                             bg: {
@@ -84,7 +86,7 @@ const theme = extendTheme(
                             }
                         }
                     },
-                },
+                }
             }
         },
         components: {
@@ -93,32 +95,6 @@ const theme = extendTheme(
                     primary: {
                         bg: "buttons.primary.bg",
                         color: "buttons.primary.text"
-                    },
-
-                    // sidebar related
-                    sidebar_selected: {
-                        bg: "buttons.sidebar.selected.bg",
-                        color: "buttons.sidebar.selected.text",
-                        width: 224,
-                        height: 38,
-                    },
-                    sidebar_normal: {
-                        bg: "buttons.sidebar.normal.bg",
-                        color: "buttons.sidebar.normal.text",
-                        width: 224,
-                        height: 38,
-                    },
-                    sidebar_child_selected: {
-                        bg: "buttons.sidebar.selected.bg",
-                        color: "buttons.sidebar.selected.text",
-                        width: 208,
-                        height: 38,
-                    },
-                    sidebar_child_normal: {
-                        bg: "buttons.sidebar.normal.bg",
-                        color: "buttons.sidebar.normal.text",
-                        width: 208,
-                        height: 38,
                     },
                 },
             },
@@ -157,6 +133,35 @@ const theme = extendTheme(
                     },
                 }
             },
+            Container: {
+                variants: {
+                    // sidebar related
+                    sidebar_selected: {
+                        bg: "containers.sidebar.selected.bg",
+                        color: "containers.sidebar.selected.text",
+                        width: 224,
+                        height: 38,
+                    },
+                    sidebar_normal: {
+                        bg: "containers.sidebar.normal.bg",
+                        color: "containers.sidebar.normal.text",
+                        width: 224,
+                        height: 38,
+                    },
+                    sidebar_child_selected: {
+                        bg: "containers.sidebar.selected.bg",
+                        color: "containers.sidebar.selected.text",
+                        width: 208,
+                        height: 38,
+                    },
+                    sidebar_child_normal: {
+                        bg: "containers.sidebar.normal.bg",
+                        color: "containers.sidebar.normal.text",
+                        width: 208,
+                        height: 38,
+                    },
+                }
+            }
         },
         themeConfig,
     },

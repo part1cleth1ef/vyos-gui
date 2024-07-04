@@ -1,7 +1,6 @@
 'use client'
 import {
     Box,
-    Button,
     Divider,
     HStack,
     LightMode,
@@ -9,16 +8,18 @@ import {
     Text,
     VStack,
     useDisclosure,
-    Accordion, AccordionButton, AccordionPanel, AccordionItem
+    Accordion, AccordionButton, AccordionPanel, AccordionItem, Container
 } from "@chakra-ui/react";
 import {Image} from "@chakra-ui/next-js";
-import React, {Children, ReactNode} from "react";
+import React from "react";
 // assets
 import white_logo from "static/_logos/white.svg";
 import info_small from "static/_icons/info_small.svg";
 import settings_icon from "static/_icons/settings.svg";
 import notification from "static/_icons/notification.svg";
 import vpn_icon from "static/_icons/vpn.svg";
+import interfaces_icon from "static/_icons/interfaces.svg";
+import {useRouter} from "next/navigation";
 
 function Title() {
     return (
@@ -47,10 +48,14 @@ interface ItemProps {
     icon: string | null;
     name: string;
     selected: boolean;
+
+    page_url?: string;
+
     notifications?: number;
     // instead of having children as a prop, we can use different components for sections then nesting the items inside.
     // This makes it easier to manage the state of the children + the code becomes far cleaner because there is no insane nesting of buttons.
-    /// because this is a child item, we ensure that there is no icon 
+    /// because this is a child item, we ensure that there is no icon
+    isParentItem?: boolean;
     isChildItem?: boolean
 }
 
@@ -65,7 +70,6 @@ type ParentProps = {
 // TODO: put the accordion in the actual sidebar component
 // TODO: remove the top and bottom dividers which come from the accordion.
 // TODO: fix styling for the accordion + items
-// TODO auto-remove the icon from child items OR make it optional
 // TODO: add a notification prop to the parent component
 
 function ParentSection({name, icon, children}: ParentProps) {
@@ -73,7 +77,7 @@ function ParentSection({name, icon, children}: ParentProps) {
         <Accordion allowMultiple={true}>
             <AccordionItem>
                 <AccordionButton>
-                    <Item icon={icon} name={name} selected={false} isChildItem={false}/>
+                    <Item icon={icon} name={name} selected={false} isChildItem={false} isParentItem={true}/>
                 </AccordionButton>
                 <AccordionPanel>
                     {children}
@@ -83,43 +87,71 @@ function ParentSection({name, icon, children}: ParentProps) {
     )
 }
 
-function Item({icon, name, selected, notifications, isChildItem = false}: ItemProps) {
+function Item({icon, name, selected, notifications, page_url, isChildItem = false, isParentItem = false}: ItemProps) {
     let theme_key = `sidebar_${(selected) ? (isChildItem ? 'child_selected' : 'selected') : (isChildItem ? 'child_normal' : 'normal')}`;
 
     const {getDisclosureProps, getButtonProps} = useDisclosure()
 
+    const router = useRouter();
 
-    const buttonProps = getButtonProps()
+
+    const
+        buttonProps = getButtonProps()
     const disclosureProps = getDisclosureProps()
 
 
+    if (!!page_url && !disclosureProps.hidden) {
+        // navigate to page_url
+        router.push(page_url);
+    }
+
+    let InnerContents: React.JSX.Element = (
+        <HStack>
+            {/* Icon */}
+            {icon &&
+                <Image src={icon} alt={`${name} Icon`} width={5} paddingRight={1.75}/>
+            }
+            {/* Name */}
+            <Text variant={"sidebar_title"}
+                  color={`containers.sidebar.${selected ? 'selected' : 'normal'}.text`}>{name}</Text>
+            {/* Notification bubble */}
+            {!!notifications &&
+                <>
+                    <Spacer/>
+                    <Box bg={"red"} rounded={13}>
+                        <Text variant={"sidebar_notification"} paddingX={"7px"}
+                              paddingY={"3px"}>{notifications}</Text>
+                    </Box>
+                </>
+            }
+        </HStack>
+    )
+
     return (
         <>
-            <Button
+            <Container
                 variant={theme_key}
                 paddingY={"8px"}
                 paddingX={isChildItem ? "32px" : "24px"}
                 justifyContent={"flex-start"}
-                // onClick={onOpen}
-                {...buttonProps}
+                rounded={selected ? 6 : 0}
             >
-                {/* Icon */}
-                {icon &&
-                    <Image src={icon} alt={`${name} Icon`} width={5} paddingRight={1.75}/>
+                {!isParentItem &&
+                    <Box
+                        bg={"transparent"}
+                        // onClick={onOpen}
+                        {...buttonProps}
+                    >
+                        {InnerContents}
+                    </Box>
                 }
-                {/* Name */}
-                <Text variant={"sidebar_title"}
-                      color={`buttons.sidebar.${selected ? 'selected' : 'normal'}.text`}>{name}</Text>
-                {!!notifications &&
-                    <>
-                        <Spacer/>
-                        <Box bg={"red"} rounded={13}>
-                            <Text variant={"sidebar_notification"} paddingX={"7px"}
-                                  paddingY={"3px"}>{notifications}</Text>
-                        </Box>
-                    </>
+                {!!isParentItem &&
+                    // <Box
+                    // >
+                    InnerContents
+                    // </Box>
                 }
-            </Button>
+            </Container>
         </>
     )
 }
@@ -134,6 +166,10 @@ export default function Sidebar() {
             <Item icon={notification} name={"Alerts"} selected={false} notifications={3}/>
 
             {/* Sidebar Divider + Settings */}
+
+
+            <Item icon={interfaces_icon} name={"Network Interfaces"} selected={false}/>
+
             <Divider/>
 
             <Item icon={settings_icon} name={"Settings"} selected={true}/>
@@ -141,8 +177,12 @@ export default function Sidebar() {
             <Divider/>
 
             <ParentSection name={"VPN"} icon={vpn_icon}>
-                <Item icon={info_small} name={"IPsec"} selected={false} isChildItem={true}/>
+                <Item icon={null} name={"IPsec"} selected={false} isChildItem={true}/>
             </ParentSection>
+
+            <Divider/>
+
+            <Item icon={info_small} name={"Login Page"} selected={false} page_url={"/"}/>
         </VStack>
     )
 }
