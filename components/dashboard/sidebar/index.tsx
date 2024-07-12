@@ -13,13 +13,17 @@ import {
 import {Image} from "@chakra-ui/next-js";
 import React from "react";
 import {useRouter} from "next/navigation";
+import {IconProps} from "@chakra-ui/icons";
 // assets
 import white_logo from "static/_logos/white.svg";
-import info_small from "static/_icons/info_small.svg";
-import settings_icon from "static/_icons/settings.svg";
-import notification from "static/_icons/notification.svg";
-import vpn_icon from "static/_icons/vpn.svg";
-import interfaces_icon from "static/_icons/interfaces.svg";
+import {
+    DashboardIcon,
+    InfoSmallIcon,
+    InterfacesIcon,
+    NotificationIcon,
+    SettingsIcon,
+    VPNIcon
+} from "@/components/icons";
 
 function Title() {
     return (
@@ -31,13 +35,13 @@ function Title() {
                 </Box>
             </LightMode>
             {/* Title */}
-            <VStack>
+            <VStack justify={"left"}>
                 <Text variant={"subheading"}>
                     router.example.com
                 </Text>
                 <HStack>
                     <Text variant={"subtitle"}>VyOS 1.4.0</Text>
-                    <Image src={info_small} alt={"Info icon"}/>
+                    <InfoSmallIcon/>
                 </HStack>
             </VStack>
         </HStack>
@@ -45,7 +49,7 @@ function Title() {
 }
 
 interface ItemProps {
-    icon: string | null;
+    Icon: React.FC<IconProps> | null;
     name: string;
     selected: boolean;
 
@@ -61,7 +65,7 @@ interface ItemProps {
 
 // to simplify the code we can use a parent component that will essentially just be a accordion that looks slightly like a button.
 type ParentProps = {
-    icon: string | null;
+    Icon: React.FC<IconProps> | null;
     name: string;
     children: React.JSX.Element;
 }
@@ -72,13 +76,14 @@ type ParentProps = {
 // -> Fix Styling for Accordion Arrow ✅
 // TODO: add a notification prop to the parent component
 
-function ParentSection({name, icon, children}: ParentProps) {
+function ParentSection({name, Icon, children}: ParentProps) {
     return (
 
-        <AccordionItem border={"none"}>
+        <AccordionItem border={"none"} role={"group"}>
             <AccordionButton>
                 <HStack>
-                    <Item icon={icon} name={name} selected={false} isChildItem={false} isParentItem={true}/>
+                    <Item Icon={Icon} name={name} selected={false} isChildItem={false}
+                          isParentItem={true}/>
                     <Spacer/>
                 </HStack>
                 <AccordionIcon/>
@@ -90,7 +95,15 @@ function ParentSection({name, icon, children}: ParentProps) {
     )
 }
 
-function Item({icon, name, selected, notifications, page_url, isChildItem = false, isParentItem = false}: ItemProps) {
+function Item({
+                  Icon,
+                  name,
+                  selected,
+                  notifications,
+                  page_url,
+                  isChildItem = false,
+                  isParentItem = false
+              }: ItemProps) {
     let theme_key = `sidebar_${(selected) ? (isChildItem ? 'child_selected' : 'selected') : (isChildItem ? 'child_normal' : 'normal')}`;
 
     const {getDisclosureProps, getButtonProps} = useDisclosure()
@@ -111,9 +124,14 @@ function Item({icon, name, selected, notifications, page_url, isChildItem = fals
     let InnerContents: React.JSX.Element = (
         <HStack>
             {/* Icon */}
-            {icon &&
-                <Image src={icon} alt={`${name} Icon`} width={5} paddingRight={1.75}/>
+            {Icon &&
+                // <Image src={icon} alt={`${name} Icon`} width={5} paddingRight={1.75}
+                //        _groupHover={{bg: "orange"}}/>
+                <Icon color={"sidebar_item_icon_normal"} _groupHover={{color: "sidebar_item_icon_hovered"}}
+                      paddingRight={1.75} width={5}/>
             }
+
+
             {/* Name */}
             <Text variant={"sidebar_title"}
                   color={`containers.sidebar.${selected ? 'selected' : 'normal'}.text`}>{name}</Text>
@@ -138,6 +156,7 @@ function Item({icon, name, selected, notifications, page_url, isChildItem = fals
                 paddingX={isChildItem ? "32px" : "24px"}
                 justifyContent={"flex-start"}
                 rounded={selected ? 6 : 0}
+                role={"group"}
             >
                 {!isParentItem &&
                     <Box
@@ -165,28 +184,32 @@ export default function Sidebar() {
         <VStack bg={"background"}>
             <Title/>
 
+            <Item Icon={DashboardIcon} name={"Dashboard"} selected={false}/>
+
+            <Divider variant={"sidebar"}/>
+
             {/* Sidebar items */}
-            <Item icon={notification} name={"Alerts"} selected={false} notifications={3}/>
+            <Item Icon={NotificationIcon} name={"Alerts"} selected={false} notifications={3}/>
 
             {/* Sidebar Divider + Settings */}
 
             <Accordion allowMultiple={true}>
 
-                <Item icon={interfaces_icon} name={"Network Interfaces"} selected={false}/>
+                <Item Icon={InterfacesIcon} name={"Network Interfaces"} selected={false}/>
 
                 <Divider variant={"sidebar"}/>
 
-                <Item icon={settings_icon} name={"Settings"} selected={true}/>
+                <Item Icon={SettingsIcon} name={"Settings"} selected={true}/>
 
                 <Divider variant={"sidebar"}/>
 
-                <ParentSection name={"VPN"} icon={vpn_icon}>
-                    <Item icon={null} name={"IPsec"} selected={false} isChildItem={true}/>
+                <ParentSection name={"VPN"} Icon={VPNIcon}>
+                    <Item Icon={null} name={"IPsec"} selected={false} isChildItem={true}/>
                 </ParentSection>
 
                 <Divider variant={"sidebar"}/>
 
-                <Item icon={info_small} name={"Login Page"} selected={false} page_url={"/"}/>
+                <Item Icon={InfoSmallIcon} name={"Login Page"} selected={false} page_url={"/"}/>
             </Accordion>
         </VStack>
     )

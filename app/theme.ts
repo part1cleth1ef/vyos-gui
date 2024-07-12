@@ -17,6 +17,15 @@ const accordionBaseStyle = accordion_helper.definePartsStyle({
     icon: {
         color: 'vyos.main', // change the backgroundColor of the container
     },
+    button: {
+        _expanded: {
+            bg: "sidebar_children_bg",
+            borderTopRadius: 6, // allows for rounding for only the top
+        },
+        _hover: {
+            bg: "transparent"
+        },
+    },
 })
 
 export const accordionTheme = accordion_helper.defineMultiStyleConfig({baseStyle: accordionBaseStyle})
@@ -55,8 +64,15 @@ const theme = extendTheme(
                     _light: "rgba(32, 32, 39, 0.05)",
                     _dark: "rgba(32, 32, 39, 0.35)",
                 },
+                sidebar_item_icon_normal: {
+                    _light: "#676D7C",
+                    _dark: "#A3AEB3",
+                },
+                sidebar_item_icon_hovered: {
+                    _light: "#303237",
+                    _dark: "white",
+                },
                 // generics
-
                 subtitle: {
                     _light: "#676D7C",
                     _dark: "#A3AEB3"
