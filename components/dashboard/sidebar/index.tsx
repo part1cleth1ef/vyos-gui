@@ -104,7 +104,18 @@ function Item({
                   isChildItem = false,
                   isParentItem = false
               }: ItemProps) {
-    let theme_key = `sidebar_${(selected) ? (isChildItem ? 'child_selected' : 'selected') : (isChildItem ? 'child_normal' : 'normal')}`;
+    let theme_key: string;
+    if (selected && isChildItem) {
+        theme_key = "sidebar_child_selected"
+    } else if (selected && !isChildItem) {
+        theme_key = "sidebar_selected"
+    } else if (!selected && isChildItem) {
+        theme_key = "sidebar_child_normal"
+    } else {
+        theme_key = "sidebar_normal"
+    }
+    
+    // let theme_key = `sidebar_${(selected) ? (isChildItem ? 'child_selected' : 'selected') : (isChildItem ? 'child_normal' : 'normal')}`;
 
     const {getDisclosureProps, getButtonProps} = useDisclosure()
 
@@ -199,7 +210,7 @@ export default function Sidebar() {
 
                 <Divider variant={"sidebar"}/>
 
-                <Item Icon={SettingsIcon} name={"Settings"} selected={true}/>
+                <Item Icon={SettingsIcon} name={"Settings [selected]"} selected={true}/>
 
                 <Divider variant={"sidebar"}/>
 

@@ -108,13 +108,13 @@ const theme = extendTheme(
                         normal: {
                             bg: {
                                 _light: "transparent",
-                                _dark: "_black"
+                                _dark: "transparent"
                             },
                             text: {
                                 _light: "subheading",
-                                _dark: "white"
+                                _dark: "subtitle"
                             }
-                        }
+                        },
                     },
                 }
             }
@@ -185,7 +185,7 @@ const theme = extendTheme(
                         height: 38,
                     },
                     sidebar_child_normal: {
-                        bg: "containers.sidebar.normal.bg",
+                        bg: "sidebar_children_bg",
                         color: "containers.sidebar.normal.text",
                         width: 208,
                         height: 38,
